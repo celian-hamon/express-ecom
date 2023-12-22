@@ -15,6 +15,15 @@ export class orderService {
     }
 
     async list(req: express.Request): Promise<any> {
+        if (await this.userHelper.isAdmin(req)) {
+            return {status: 200, message: await this.prisma.order.findMany(
+                    {
+                        include:{
+                            items: true
+                        }
+                    }
+                )};
+        }
         return {status: 200, message: await this.prisma.order.findMany(
                 {
                     where: {
@@ -83,15 +92,15 @@ export class orderService {
                                 return {status: 201, message: item}
                             }
                         ).catch((err) => {
-                            return {status: 422, message: "Unprocessable Entity"};
+                            return {status: 422, message: err.message.split('\n').slice(-1)[0]};
                         });
                         return {status: 201, message: item};
                     }).catch((err) => {
-                        return {status: 422, message: "Unprocessable Entity"};
+                        return {status: 422, message: err.message.split('\n').slice(-1)[0]};
                     });
                 }
             }).catch((err) => {
-                return {status: 422, message: "Unprocessable Entity"};
+                return {status: 422, message: err.message.split('\n').slice(-1)[0]};
             });
             if (object.status !== 201) {
                 return object;
@@ -124,7 +133,7 @@ export class orderService {
             }
         ).catch((err) => {
             console.log(err);
-            return {status: 422, message: "Unprocessable Entity"};
+            return {status: 422, message: err.message.split('\n').slice(-1)[0]};
         });
     }
 
@@ -156,23 +165,26 @@ export class orderService {
                 }
             ).catch((err) => {
                 console.log(err)
-                return {status: 422, message: "Unprocessable Entity"};
+                return {status: 422, message: err.message.split('\n').slice(-1)[0]};
             });
         }
     }
 
     async delete(req: express.Request): Promise<any> {
-        return await this.prisma.category.delete({
+        return await this.prisma.order.delete({
             where: {
                 id: parseInt(req.params.id)
+            },
+            include: {
+                items: true
             }
         }).then(
             (item) => {
-                return {status: 200, message: item};
+                return {status: 204};
             }
         ).catch((err) => {
             console.log(err)
-            return {status: 422, message: "Unprocessable Entity"};
+            return {status: 404, message: "Not Found"};
         });
     }
 }

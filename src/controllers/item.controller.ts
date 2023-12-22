@@ -22,9 +22,9 @@ class ItemController implements ControllerInterface {
     public intializeRoutes() {
         this.router.get(this.path + "s", this.list);
         this.router.get(this.path+"/:id", this.get);
-        this.router.post(this.path, this.middleware.checkTokenAdmin, this.create);
-        this.router.put(this.path+"/:id", this.middleware.checkTokenAdmin, this.update);
-        this.router.delete(this.path+"/:id", this.middleware.checkTokenAdmin, this.delete);
+        this.router.post(this.path, this.middleware.checkTokenGestionnaire, this.create);
+        this.router.put(this.path+"/:id", this.middleware.checkTokenGestionnaire, this.update);
+        this.router.delete(this.path+"/:id", this.middleware.checkTokenGestionnaire, this.delete);
     }
 
     list = async (req: express.Request, res: express.Response) => {

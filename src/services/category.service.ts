@@ -41,7 +41,7 @@ export class categoryService {
             }
         ).catch((err) => {
             console.log(err);
-            return {status: 422, message: "Unprocessable Entity"};
+            return {status: 422, message: err.message.split('\n').slice(-1)[0]};
         });
     }
 
@@ -59,7 +59,7 @@ export class categoryService {
             }
         ).catch((err) => {
             console.log(err)
-            return {status: 422, message: "Unprocessable Entity"};
+            return {status: 422, message: err.message.split('\n').slice(-1)[0]};
         });
     }
 
@@ -74,7 +74,7 @@ export class categoryService {
             }
         ).catch((err) => {
             console.log(err)
-            return {status: 422, message: "Unprocessable Entity"};
+            return {status: 404, message: "Not Found"};
         });
     }
 }

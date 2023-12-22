@@ -22,8 +22,8 @@ class OrderController implements ControllerInterface {
         this.router.get(this.path+"s", this.middleware.checkToken, this.list);
         this.router.get(this.path+"/:id", this.middleware.checkToken, this.get);
         this.router.post(this.path, this.middleware.checkToken, this.create);
-        this.router.put(this.path+"/:id", this.middleware.checkToken, this.update);
-        this.router.delete(this.path+"/:id", this.middleware.checkToken, this.delete);
+        this.router.put(this.path+"/:id", this.middleware.checkTokenGestionnaire, this.update);
+        this.router.delete(this.path+"/:id", this.middleware.checkTokenGestionnaire, this.delete);
     }
 
     list = async (req: express.Request, res: express.Response) => {

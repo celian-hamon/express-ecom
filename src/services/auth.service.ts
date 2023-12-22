@@ -51,7 +51,7 @@ export class authService {
             const token = jwt.sign({
                 id: user.id,
                 email: user.email,
-                isAdmin: user.isAdmin
+                role: user.role,
                 // @ts-ignore
             }, process.env.SECRET, { expiresIn: '3 hours' })
             return {status: 200, message: token};
@@ -87,7 +87,7 @@ export class authService {
                 id: userId
             }
         });
-        if (user?.isAdmin === false && userId != parseInt(req.params.id)) {
+        if (user?.role !== "ADMIN" && userId != parseInt(req.params.id)) {
             return {status: 401, message: "Unauthorized"};
         } else {
             return await this.prisma.user.update({
@@ -98,7 +98,7 @@ export class authService {
                     email: req.body.email,
                     firstName: req.body.firstName,
                     lastName: req.body.lastName,
-                    isAdmin: user?.isAdmin ? req.body.isAdmin : false,
+                    role: user?.role === "ADMIN" ? req.body.role : user?.role
                 }
             }).then(
                 (item) => {
@@ -118,7 +118,7 @@ export class authService {
                 id: parseInt(req.params.id)
             }
         });
-        if (userId === 0 || user === null || user?.isAdmin === false) {
+        if (userId === 0 || user === null || user?.role === "ADMIN") {
             return {status: 401, message: "Unauthorized"};
         } else {
             return await this.prisma.user.delete({

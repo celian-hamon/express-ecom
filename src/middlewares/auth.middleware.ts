@@ -19,6 +19,28 @@ export class AuthMiddleware {
         })
     }
 
+    checkTokenGestionnaire = (req: express.Request, res: express.Response, next: express.NextFunction) => {
+        const token = req.headers.authorization && this.extractBearerToken(req.headers.authorization)
+
+        if (!token) {
+            return res.status(401).json({ message: 'Unauthorized' })
+        }
+
+        // @ts-ignore
+        jwt.verify(token, process.env.SECRET, (err, decodedToken) => {
+            if (err) {
+                res.status(401).json({ message: 'Unauthorized' })
+            } else {
+                // @ts-ignore
+                if(decodedToken.role === 'GESTION' || decodedToken.role === 'ADMIN') {
+                    return next()
+                } else {
+                    res.status(401).json({ message: 'Unauthorized' })
+                }
+            }
+        })
+    }
+
     checkTokenAdmin = (req: express.Request, res: express.Response, next: express.NextFunction) => {
         const token = req.headers.authorization && this.extractBearerToken(req.headers.authorization)
 
@@ -32,7 +54,7 @@ export class AuthMiddleware {
                 res.status(401).json({ message: 'Unauthorized' })
             } else {
                 // @ts-ignore
-                if(decodedToken.isAdmin) {
+                if(decodedToken.role === 'ADMIN') {
                     return next()
                 } else {
                     res.status(401).json({ message: 'Unauthorized' })

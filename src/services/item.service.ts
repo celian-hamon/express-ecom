@@ -46,8 +46,7 @@ export class itemService {
                 return {status: 201, message: item};
             }
         ).catch((err) => {
-            console.log(err);
-            return {status: 422, message: "Unprocessable Entity"};
+            return {status: 422, message: err.message.split('\n').slice(-1)[0]};
         });
     }
 
@@ -73,8 +72,10 @@ export class itemService {
                 return {status: 200, message: item};
             }
         ).catch((err) => {
-            console.log(err)
-            return {status: 422, message: "Unprocessable Entity"};
+            if (err.code === 'P2016') {
+                return {status:404, message: "Not Found"}
+            }
+            return {status: 422, message: err.message.split('\n').slice(-1)[0]};
         });
     }
 
@@ -85,11 +86,10 @@ export class itemService {
             }
         }).then(
             (item) => {
-                return {status: 200, message: item};
+                return {status: 204};
             }
         ).catch((err) => {
-            console.log(err)
-            return {status: 422, message: "Unprocessable Entity"};
+            return {status: 404, message: "Not Found"};
         });
     }
 }

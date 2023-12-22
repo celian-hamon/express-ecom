@@ -17,7 +17,7 @@ model User {
   lastName   String?
   password String
   orders Order[]
-  isAdmin Boolean @default(false)
+  role Role @default(USER)
 }
 
 model Item {
@@ -54,3 +54,8 @@ model OrderItem {
   quantity Int
 }
 
+enum Role {
+  USER
+  GESTION
+  ADMIN
+}

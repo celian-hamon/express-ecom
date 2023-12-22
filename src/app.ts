@@ -3,6 +3,7 @@ import * as bodyParser from 'body-parser';
 import cors from "cors";
 import helmet from "helmet";
 import {PrismaClient} from "@prisma/client";
+import setRateLimit from "express-rate-limit";
 
 class App {
     public app: express.Application;
@@ -20,6 +21,12 @@ class App {
         this.app.use(bodyParser.json());
         this.app.use(helmet());
         this.app.use(cors());
+        this.app.use(setRateLimit({
+            windowMs: 60 * 1000,
+            max: 5,
+            message: "You have exceeded your 5 requests per minute limit.",
+            headers: true,
+        }))
     }
 
     private initializeControllers(controllers: any[]) {
