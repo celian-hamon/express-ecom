@@ -2,3 +2,4 @@
 .idea
 TODO
 postgres-data
+.env

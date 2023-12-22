@@ -1,7 +1,8 @@
 import {PrismaClient} from '@prisma/client';
 import express from "express";
 import multer from 'multer';
-const upload = multer({ dest: 'uploads/' })
+
+const upload = multer({dest: 'uploads/'})
 
 export class categoryService {
     private prisma: PrismaClient;

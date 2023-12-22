@@ -3,8 +3,6 @@ import {ControllerInterface} from "./controller.interface";
 import {PrismaClient} from '@prisma/client'
 import {itemService} from "../services/item.service";
 import {AuthMiddleware} from "../middlewares/auth.middleware";
-import multer from 'multer';
-import pathe from "path";
 
 class ItemController implements ControllerInterface {
     public path = '/item';
@@ -21,10 +19,10 @@ class ItemController implements ControllerInterface {
 
     public intializeRoutes() {
         this.router.get(this.path + "s", this.list);
-        this.router.get(this.path+"/:id", this.get);
+        this.router.get(this.path + "/:id", this.get);
         this.router.post(this.path, this.middleware.checkTokenGestionnaire, this.create);
-        this.router.put(this.path+"/:id", this.middleware.checkTokenGestionnaire, this.update);
-        this.router.delete(this.path+"/:id", this.middleware.checkTokenGestionnaire, this.delete);
+        this.router.put(this.path + "/:id", this.middleware.checkTokenGestionnaire, this.update);
+        this.router.delete(this.path + "/:id", this.middleware.checkTokenGestionnaire, this.delete);
     }
 
     list = async (req: express.Request, res: express.Response) => {

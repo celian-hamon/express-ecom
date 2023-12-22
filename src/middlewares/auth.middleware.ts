@@ -6,13 +6,13 @@ export class AuthMiddleware {
         const token = req.headers.authorization && this.extractBearerToken(req.headers.authorization)
 
         if (!token) {
-            return res.status(401).json({ message: 'Unauthorized' })
+            return res.status(401).json({message: 'Unauthorized'})
         }
 
         // @ts-ignore
         jwt.verify(token, process.env.SECRET, (err, decodedToken) => {
             if (err) {
-                res.status(401).json({ message: 'Unauthorized' })
+                res.status(401).json({message: 'Unauthorized'})
             } else {
                 return next()
             }
@@ -23,19 +23,19 @@ export class AuthMiddleware {
         const token = req.headers.authorization && this.extractBearerToken(req.headers.authorization)
 
         if (!token) {
-            return res.status(401).json({ message: 'Unauthorized' })
+            return res.status(401).json({message: 'Unauthorized'})
         }
 
         // @ts-ignore
         jwt.verify(token, process.env.SECRET, (err, decodedToken) => {
             if (err) {
-                res.status(401).json({ message: 'Unauthorized' })
+                res.status(401).json({message: 'Unauthorized'})
             } else {
                 // @ts-ignore
-                if(decodedToken.role === 'GESTION' || decodedToken.role === 'ADMIN') {
+                if (decodedToken.role === 'GESTION' || decodedToken.role === 'ADMIN') {
                     return next()
                 } else {
-                    res.status(401).json({ message: 'Unauthorized' })
+                    res.status(401).json({message: 'Unauthorized'})
                 }
             }
         })
@@ -45,19 +45,19 @@ export class AuthMiddleware {
         const token = req.headers.authorization && this.extractBearerToken(req.headers.authorization)
 
         if (!token) {
-            return res.status(401).json({ message: 'Unauthorized' })
+            return res.status(401).json({message: 'Unauthorized'})
         }
 
         // @ts-ignore
         jwt.verify(token, process.env.SECRET, (err, decodedToken) => {
             if (err) {
-                res.status(401).json({ message: 'Unauthorized' })
+                res.status(401).json({message: 'Unauthorized'})
             } else {
                 // @ts-ignore
-                if(decodedToken.role === 'ADMIN') {
+                if (decodedToken.role === 'ADMIN') {
                     return next()
                 } else {
-                    res.status(401).json({ message: 'Unauthorized' })
+                    res.status(401).json({message: 'Unauthorized'})
                 }
             }
         })

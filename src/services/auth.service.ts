@@ -53,7 +53,7 @@ export class authService {
                 email: user.email,
                 role: user.role,
                 // @ts-ignore
-            }, process.env.SECRET, { expiresIn: '3 hours' })
+            }, process.env.SECRET, {expiresIn: '3 hours'})
             return {status: 200, message: token};
         } else {
             return {status: 401, message: "Unauthorized"};

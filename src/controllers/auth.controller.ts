@@ -1,6 +1,6 @@
 import * as express from 'express';
 import {ControllerInterface} from "./controller.interface";
-import { PrismaClient } from '@prisma/client'
+import {PrismaClient} from '@prisma/client'
 import {authService} from "../services/auth.service";
 import {AuthMiddleware} from "../middlewares/auth.middleware";
 
@@ -18,12 +18,12 @@ class UserController implements ControllerInterface {
     }
 
     public intializeRoutes() {
-        this.router.get(this.path+"/users", this.middleware.checkTokenAdmin, this.list);
-        this.router.get(this.path+"/:id", this.middleware.checkTokenAdmin, this.get);
-        this.router.post(this.path+"/signin", this.signup);
-        this.router.post(this.path+"/login", this.login);
-        this.router.put(this.path+"/:id", this.middleware.checkToken, this.update);
-        this.router.delete(this.path+"/:id", this.middleware.checkTokenAdmin, this.delete);
+        this.router.get(this.path + "/users", this.middleware.checkTokenAdmin, this.list);
+        this.router.get(this.path + "/:id", this.middleware.checkTokenAdmin, this.get);
+        this.router.post(this.path + "/signin", this.signup);
+        this.router.post(this.path + "/login", this.login);
+        this.router.put(this.path + "/:id", this.middleware.checkToken, this.update);
+        this.router.delete(this.path + "/:id", this.middleware.checkTokenAdmin, this.delete);
     }
 
     signup = async (req: express.Request, res: express.Response) => {

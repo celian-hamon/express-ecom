@@ -1,7 +1,8 @@
 import {PrismaClient} from '@prisma/client';
 import express from "express";
 import multer from 'multer';
-const upload = multer({ dest: 'uploads/' })
+
+const upload = multer({dest: 'uploads/'})
 
 export class itemService {
     private prisma: PrismaClient;
@@ -73,7 +74,7 @@ export class itemService {
             }
         ).catch((err) => {
             if (err.code === 'P2016') {
-                return {status:404, message: "Not Found"}
+                return {status: 404, message: "Not Found"}
             }
             return {status: 422, message: err.message.split('\n').slice(-1)[0]};
         });

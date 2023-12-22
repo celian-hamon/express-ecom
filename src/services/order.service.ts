@@ -16,24 +16,28 @@ export class orderService {
 
     async list(req: express.Request): Promise<any> {
         if (await this.userHelper.isAdmin(req)) {
-            return {status: 200, message: await this.prisma.order.findMany(
+            return {
+                status: 200, message: await this.prisma.order.findMany(
                     {
-                        include:{
+                        include: {
                             items: true
                         }
                     }
-                )};
+                )
+            };
         }
-        return {status: 200, message: await this.prisma.order.findMany(
+        return {
+            status: 200, message: await this.prisma.order.findMany(
                 {
                     where: {
                         userId: await this.userHelper.getUserId(req)
                     },
-                    include:{
+                    include: {
                         items: true
                     }
                 }
-            )};
+            )
+        };
     }
 
     async get(req: express.Request): Promise<any> {
@@ -94,7 +98,6 @@ export class orderService {
                         ).catch((err) => {
                             return {status: 422, message: err.message.split('\n').slice(-1)[0]};
                         });
-                        return {status: 201, message: item};
                     }).catch((err) => {
                         return {status: 422, message: err.message.split('\n').slice(-1)[0]};
                     });

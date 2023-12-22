@@ -2,7 +2,6 @@ import express from 'express';
 import * as bodyParser from 'body-parser';
 import cors from "cors";
 import helmet from "helmet";
-import {PrismaClient} from "@prisma/client";
 import setRateLimit from "express-rate-limit";
 
 class App {
@@ -15,6 +14,12 @@ class App {
 
         this.initializeMiddlewares();
         this.initializeControllers(controllers);
+    }
+
+    public listen() {
+        this.app.listen(this.port, () => {
+            console.log(`App listening on the port ${this.port}`);
+        });
     }
 
     private initializeMiddlewares() {
@@ -39,12 +44,6 @@ class App {
             status: 404,
             message: "Not Found"
         }));
-    }
-
-    public listen() {
-        this.app.listen(this.port, () => {
-            console.log(`App listening on the port ${this.port}`);
-        });
     }
 }
 

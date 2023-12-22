@@ -19,10 +19,10 @@ class CategoryController implements ControllerInterface {
 
     public intializeRoutes() {
         this.router.get("/categories", this.list);
-        this.router.get(this.path+"/:id", this.get);
+        this.router.get(this.path + "/:id", this.get);
         this.router.post(this.path, this.middleware.checkTokenAdmin, this.create);
-        this.router.put(this.path+"/:id", this.middleware.checkTokenAdmin, this.update);
-        this.router.delete(this.path+"/:id", this.middleware.checkTokenAdmin, this.delete);
+        this.router.put(this.path + "/:id", this.middleware.checkTokenAdmin, this.update);
+        this.router.delete(this.path + "/:id", this.middleware.checkTokenAdmin, this.delete);
     }
 
     list = async (req: express.Request, res: express.Response) => {
