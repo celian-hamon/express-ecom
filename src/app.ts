@@ -40,7 +40,7 @@ class App {
         });
 
         // since its last route matched it will return 404
-        this.app.use((req, res) => res.json({
+        this.app.use((req, res) => res.status(404).json({
             status: 404,
             message: "Not Found"
         }));
