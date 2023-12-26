@@ -41,7 +41,7 @@ export class orderService {
     }
 
     async get(req: express.Request): Promise<any> {
-        return await this.prisma.order.findUnique({
+        return this.prisma.order.findUnique({
             where: {
                 userId: await this.userHelper.getUserId(req),
                 id: parseInt(req.params.id)
@@ -111,7 +111,7 @@ export class orderService {
                 objects.push(object.message);
             }
         }
-        return await this.prisma.order.create(
+        return this.prisma.order.create(
             {
                 data: {
                     user: {
@@ -152,7 +152,7 @@ export class orderService {
         if (orders === undefined) {
             return {status: 404, message: "Not Found"};
         } else {
-            return await this.prisma.order.update({
+            return this.prisma.order.update({
                 where: {
                     id: parseInt(req.params.id)
                 },
@@ -174,7 +174,7 @@ export class orderService {
     }
 
     async delete(req: express.Request): Promise<any> {
-        return await this.prisma.order.delete({
+        return this.prisma.order.delete({
             where: {
                 id: parseInt(req.params.id)
             },

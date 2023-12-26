@@ -12,21 +12,21 @@ export class itemService {
     }
 
     async list(req: express.Request): Promise<any> {
-        let items = await this.prisma.item.findMany();
-        return {status: 200, message: items};
+        return {status: 200, message: this.prisma.item.findMany()};
     }
 
     async get(req: express.Request): Promise<any> {
-        let item = await this.prisma.item.findUnique({
-            where: {
-                id: parseInt(req.params.id)
-            }
-        });
-        return {status: 200, message: item};
+        return {
+            status: 200, message: this.prisma.item.findUnique({
+                where: {
+                    id: parseInt(req.params.id)
+                }
+            })
+        };
     }
 
     async create(req: express.Request): Promise<any> {
-        return await this.prisma.item.create(
+        return this.prisma.item.create(
             {
                 data: {
                     name: req.body.name,
@@ -52,7 +52,7 @@ export class itemService {
     }
 
     async update(req: express.Request): Promise<any> {
-        return await this.prisma.item.update({
+        return this.prisma.item.update({
             where: {
                 id: parseInt(req.params.id)
             },
@@ -81,7 +81,7 @@ export class itemService {
     }
 
     async delete(req: express.Request): Promise<any> {
-        return await this.prisma.item.delete({
+        return this.prisma.item.delete({
             where: {
                 id: parseInt(req.params.id)
             }

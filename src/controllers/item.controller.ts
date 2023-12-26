@@ -27,27 +27,27 @@ class ItemController implements ControllerInterface {
 
     list = async (req: express.Request, res: express.Response) => {
         let response = await this.service.list(req);
-        res.send(response);
+        res.status(response.status).send(response);
     }
 
     get = async (req: express.Request, res: express.Response) => {
         let response = await this.service.get(req);
-        res.send(response);
+        res.status(response.status).send(response);
     }
 
     create = async (req: express.Request, res: express.Response) => {
         let response = await this.service.create(req);
-        res.send(response);
+        res.status(response.status).send(response);
     }
 
     update = async (req: express.Request, res: express.Response) => {
         let response = await this.service.update(req);
-        res.send(response);
+        res.status(response.status).send(response);
     }
 
     delete = async (req: express.Request, res: express.Response) => {
         let response = await this.service.delete(req);
-        res.send(response);
+        res.status(response.status).send(response);
     }
 }
 

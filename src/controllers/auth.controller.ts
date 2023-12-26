@@ -28,32 +28,32 @@ class UserController implements ControllerInterface {
 
     signup = async (req: express.Request, res: express.Response) => {
         let response = await this.service.signup(req);
-        res.send(response);
+        res.status(response.status).send(response);
     }
 
     login = async (req: express.Request, res: express.Response) => {
         let response = await this.service.login(req);
-        res.send(response);
+        res.status(response.status).send(response);
     }
 
     list = async (req: express.Request, res: express.Response) => {
         let response = await this.service.list(req);
-        res.send(response);
+        res.status(response.status).send(response);
     }
 
     get = async (req: express.Request, res: express.Response) => {
         let response = await this.service.get(req);
-        res.send(response);
+        res.status(response.status).send(response);
     }
 
     update = async (req: express.Request, res: express.Response) => {
         let response = await this.service.update(req);
-        res.send(response);
+        res.status(response.status).send(response);
     }
 
     delete = async (req: express.Request, res: express.Response) => {
         let response = await this.service.delete(req);
-        res.send(response);
+        res.status(response.status).send(response);
     }
 }
 

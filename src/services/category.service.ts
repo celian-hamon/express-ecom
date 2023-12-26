@@ -12,11 +12,11 @@ export class categoryService {
     }
 
     async list(req: express.Request): Promise<any> {
-        return {status: 200, message: await this.prisma.category.findMany()};
+        return {status: 200, message: this.prisma.category.findMany()};
     }
 
     async get(req: express.Request): Promise<any> {
-        return await this.prisma.category.findUnique({
+        return this.prisma.category.findUnique({
             where: {
                 id: parseInt(req.params.id)
             }
@@ -30,7 +30,7 @@ export class categoryService {
     }
 
     async create(req: express.Request): Promise<any> {
-        return await this.prisma.category.create(
+        return this.prisma.category.create(
             {
                 data: {
                     name: req.body.name,
@@ -47,7 +47,7 @@ export class categoryService {
     }
 
     async update(req: express.Request): Promise<any> {
-        return await this.prisma.category.update({
+        return this.prisma.category.update({
             where: {
                 id: parseInt(req.params.id)
             },
@@ -65,7 +65,7 @@ export class categoryService {
     }
 
     async delete(req: express.Request): Promise<any> {
-        return await this.prisma.category.delete({
+        return this.prisma.category.delete({
             where: {
                 id: parseInt(req.params.id)
             }

@@ -20,7 +20,7 @@ export class authService {
         if (!req.body.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
             return {status: 400, message: "Email is not valid"};
         }
-        return await this.prisma.user.create({
+        return this.prisma.user.create({
             data: {
                 email: req.body.email,
                 password: this.getHash(req.body.password),
@@ -58,16 +58,14 @@ export class authService {
         } else {
             return {status: 401, message: "Unauthorized"};
         }
-
-
     }
 
     async list(req: express.Request): Promise<any> {
-        return {status: 200, message: await this.prisma.user.findMany()};
+        return {status: 200, message: this.prisma.user.findMany()};
     }
 
     async get(req: express.Request): Promise<any> {
-        return await this.prisma.user.findUnique({
+        return this.prisma.user.findUnique({
             where: {
                 id: parseInt(req.params.id)
             }
@@ -90,7 +88,7 @@ export class authService {
         if (user?.role !== "ADMIN" && userId != parseInt(req.params.id)) {
             return {status: 401, message: "Unauthorized"};
         } else {
-            return await this.prisma.user.update({
+            return this.prisma.user.update({
                 where: {
                     id: parseInt(req.params.id)
                 },
@@ -121,7 +119,7 @@ export class authService {
         if (userId === 0 || user === null || user?.role === "ADMIN") {
             return {status: 401, message: "Unauthorized"};
         } else {
-            return await this.prisma.user.delete({
+            return this.prisma.user.delete({
                 where: {
                     id: parseInt(req.params.id)
                 }

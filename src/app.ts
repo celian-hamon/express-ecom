@@ -28,8 +28,8 @@ class App {
         this.app.use(cors());
         this.app.use(setRateLimit({
             windowMs: 60 * 1000,
-            max: 5,
-            message: "You have exceeded your 5 requests per minute limit.",
+            max: 30,
+            message: "You have exceeded your 40 requests per minute limit.",
             headers: true,
         }))
     }
