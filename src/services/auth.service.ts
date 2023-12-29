@@ -61,13 +61,20 @@ export class authService {
     }
 
     async list(req: express.Request): Promise<any> {
-        return {status: 200, message: this.prisma.user.findMany()};
+        return {status: 200, message: await this.prisma.user.findMany()};
     }
 
     async get(req: express.Request): Promise<any> {
         return this.prisma.user.findUnique({
             where: {
                 id: parseInt(req.params.id)
+            },
+            select: {
+                id: true,
+                email: true,
+                firstName: true,
+                lastName: true,
+                role: true
             }
         }).then((item) => {
             return {status: 200, message: item};
